@@ -599,114 +599,12 @@
       color: var(--bg-dark);
       font-weight: 400;
       transition: all 0.2s;
-      cursor: pointer;
-      user-select: none;
     }
 
     .market-pill:hover {
       background: var(--green);
       color: var(--offwhite);
       border-color: var(--green);
-    }
-
-    .market-pill.active {
-      background: var(--green);
-      color: var(--offwhite);
-      border-color: var(--green);
-    }
-
-    /* partner belt */
-    .partner-belt {
-      background: var(--offwhite);
-      padding: 40px 0 80px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .partner-belt::before,
-    .partner-belt::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 80px;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .partner-belt::before {
-      left: 0;
-      background: linear-gradient(to right, var(--offwhite), transparent);
-    }
-
-    .partner-belt::after {
-      right: 0;
-      background: linear-gradient(to left, var(--offwhite), transparent);
-    }
-
-    .belt-track {
-      display: flex;
-      align-items: center;
-      gap: 64px;
-      width: max-content;
-      animation: beltScroll 30s linear infinite;
-    }
-
-    .belt-track:hover {
-      animation-play-state: paused;
-    }
-
-    .partner-logo-item {
-      flex-shrink: 0;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: rgba(42, 57, 44, 0.35);
-      white-space: nowrap;
-      transition: color 0.3s;
-      letter-spacing: 0.5px;
-    }
-
-    .partner-logo-item:hover {
-      color: var(--bg-dark);
-    }
-
-    .belt-divider {
-      flex-shrink: 0;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: rgba(42, 57, 44, 0.15);
-    }
-
-    @keyframes beltScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .partner-belt.filtered .belt-track {
-      animation: none;
-      justify-content: center;
-      width: 100%;
-      flex-wrap: wrap;
-      padding: 0 48px;
-      gap: 48px;
-    }
-
-    .partner-belt.filtered::before,
-    .partner-belt.filtered::after {
-      display: none;
-    }
-
-    .partner-logo-item.hidden {
-      display: none;
-    }
-
-    .partner-belt.filtered .belt-divider {
-      display: none;
-    }
-
-    .partner-belt.filtered .partner-logo-item {
-      font-size: 1.5rem;
-      color: rgba(42, 57, 44, 0.5);
     }
 
     /* press */
@@ -1244,67 +1142,6 @@
     </div>
   </section>
 
-  <!-- partner belt -->
-  <div class="partner-belt" id="partnerBelt">
-    <div class="belt-track" id="beltTrack">
-      <!-- OC partners -->
-      <span class="partner-logo-item" data-city="orange county">Helmsman Ale House</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Wild Goose</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Twisted Tiki</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Sender One</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">BXCR Underground</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Class of 47</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Wet Dog Tavern</span>
-      <span class="belt-divider"></span>
-      <!-- LA partners -->
-      <span class="partner-logo-item" data-city="los angeles">Bar Lis</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Bar Bandini</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Desert 5 Spot</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">The Lincoln</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Highland Park Bowl</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Gin Rummy</span>
-      <span class="belt-divider"></span>
-      <!-- duplicate for seamless loop -->
-      <span class="partner-logo-item" data-city="orange county">Helmsman Ale House</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Wild Goose</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Twisted Tiki</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Sender One</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">BXCR Underground</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Class of 47</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="orange county">Wet Dog Tavern</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Bar Lis</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Bar Bandini</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Desert 5 Spot</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">The Lincoln</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Highland Park Bowl</span>
-      <span class="belt-divider"></span>
-      <span class="partner-logo-item" data-city="los angeles">Gin Rummy</span>
-      <span class="belt-divider"></span>
-    </div>
-  </div>
-
   <!-- comparison -->
   <section class="comparison">
     <div class="container">
@@ -1667,59 +1504,6 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // partner belt city filtering
-    const pills = document.querySelectorAll('.market-pill');
-    const belt = document.getElementById('partnerBelt');
-    const track = document.getElementById('beltTrack');
-    const logos = track.querySelectorAll('.partner-logo-item');
-    const dividers = track.querySelectorAll('.belt-divider');
-
-    pills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        const city = pill.textContent.trim().toLowerCase();
-        const wasActive = pill.classList.contains('active');
-
-        // remove active from all
-        pills.forEach(p => p.classList.remove('active'));
-
-        if (wasActive) {
-          // deselect — show all, resume scrolling
-          belt.classList.remove('filtered');
-          logos.forEach(l => l.classList.remove('hidden'));
-          dividers.forEach(d => d.style.display = '');
-          return;
-        }
-
-        // activate this pill
-        pill.classList.add('active');
-
-        // check if any partners exist for this city
-        const hasPartners = Array.from(logos).some(l => l.dataset.city === city);
-
-        if (!hasPartners) {
-          // no partners for this city — keep scrolling all
-          belt.classList.remove('filtered');
-          logos.forEach(l => l.classList.remove('hidden'));
-          dividers.forEach(d => d.style.display = '');
-          return;
-        }
-
-        // filter to this city
-        belt.classList.add('filtered');
-        logos.forEach(l => {
-          if (l.dataset.city === city) {
-            l.classList.remove('hidden');
-          } else {
-            l.classList.add('hidden');
-          }
-        });
-        dividers.forEach(d => d.style.display = 'none');
-
-        // scroll belt into view
-        belt.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-    });
   </script>
 
 </body>
