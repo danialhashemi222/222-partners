@@ -1857,74 +1857,53 @@
       });
     });
 
-    // partner belt city highlight + scroll to city
+    // partner belt city highlight + jump to city (never stops)
     const pills = document.querySelectorAll('.market-pill');
     const belt = document.getElementById('partnerBelt');
     const track = document.getElementById('beltTrack');
     const logos = track.querySelectorAll('.partner-logo-item');
     let highlightTimeout;
-    let isSnapped = false;
 
     pills.forEach(pill => {
       pill.addEventListener('click', () => {
         const city = pill.textContent.trim().toLowerCase();
         const wasActive = pill.classList.contains('active');
 
-        // clear previous
         pills.forEach(p => p.classList.remove('active'));
         logos.forEach(l => l.classList.remove('highlight'));
         clearTimeout(highlightTimeout);
 
-        if (wasActive) {
-          // resume scrolling
-          isSnapped = false;
-          track.style.transition = '';
-          track.style.transform = '';
-          track.style.animation = '';
-          return;
-        }
+        if (wasActive) return;
 
-        // check if city has partners
         const firstMatch = Array.from(logos).find(l => l.dataset.city === city);
         if (!firstMatch) return;
 
-        // activate pill
         pill.classList.add('active');
-
-        // highlight matching
         logos.forEach(l => {
           if (l.dataset.city === city) l.classList.add('highlight');
         });
 
-        // freeze current position
-        const computedStyle = window.getComputedStyle(track);
-        const matrix = computedStyle.transform;
+        // figure out how far into the animation we need to jump
+        // so the first match is centered, then let CSS keep scrolling from there
+        const trackWidth = track.scrollWidth / 2; // half because content is duplicated
+        const beltWidth = belt.getBoundingClientRect().width;
+        const matchOffset = firstMatch.offsetLeft;
+        const centerOffset = matchOffset - (beltWidth / 2) + (firstMatch.offsetWidth / 2);
+
+        // percentage through the animation
+        const pct = (centerOffset / trackWidth) * 100;
+
+        // restart animation from that offset using negative delay
         track.style.animation = 'none';
-        track.style.transform = matrix;
-        track.offsetHeight; // force reflow
+        track.offsetHeight;
+        track.style.animation = `beltScroll 30s linear infinite`;
+        track.style.animationDelay = `-${(pct / 100) * 30}s`;
 
-        // calculate where to slide
-        const beltRect = belt.getBoundingClientRect();
-        const matchRect = firstMatch.getBoundingClientRect();
-        const beltCenter = beltRect.width / 2;
-        const matchCenter = matchRect.left - beltRect.left + matchRect.width / 2;
-        const currentX = new DOMMatrix(matrix).m41 || 0;
-        const targetX = currentX - (matchCenter - beltCenter);
-
-        // slide to city
-        track.style.transition = 'transform 0.8s ease';
-        track.style.transform = `translateX(${targetX}px)`;
-        isSnapped = true;
-
-        // resume scrolling after 4 seconds
+        // clear highlight after 5s
         highlightTimeout = setTimeout(() => {
           logos.forEach(l => l.classList.remove('highlight'));
           pills.forEach(p => p.classList.remove('active'));
-          isSnapped = false;
-          track.style.transition = '';
-          track.style.transform = '';
-          track.style.animation = '';
-        }, 4000);
+        }, 5000);
       });
     });
   </script>
