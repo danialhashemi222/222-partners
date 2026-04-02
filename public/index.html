@@ -599,12 +599,92 @@
       color: var(--bg-dark);
       font-weight: 400;
       transition: all 0.2s;
+      cursor: pointer;
+      user-select: none;
     }
 
     .market-pill:hover {
       background: var(--green);
       color: var(--offwhite);
       border-color: var(--green);
+    }
+
+    .market-pill.active {
+      background: var(--green);
+      color: var(--offwhite);
+      border-color: var(--green);
+    }
+
+    /* partner belt */
+    .partner-belt {
+      background: var(--offwhite);
+      padding: 40px 0 80px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .partner-belt::before,
+    .partner-belt::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .partner-belt::before {
+      left: 0;
+      background: linear-gradient(to right, var(--offwhite), transparent);
+    }
+
+    .partner-belt::after {
+      right: 0;
+      background: linear-gradient(to left, var(--offwhite), transparent);
+    }
+
+    .belt-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content;
+      animation: beltScroll 30s linear infinite;
+    }
+
+    .belt-track:hover {
+      animation-play-state: paused;
+    }
+
+    .partner-logo-item {
+      flex-shrink: 0;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: rgba(42, 57, 44, 0.35);
+      white-space: nowrap;
+      transition: color 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .partner-logo-item:hover {
+      color: var(--bg-dark);
+    }
+
+    .belt-divider {
+      flex-shrink: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(42, 57, 44, 0.15);
+    }
+
+    @keyframes beltScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .partner-logo-item.highlight {
+      color: var(--bg-dark);
+      font-weight: 600;
     }
 
     /* press */
@@ -653,7 +733,7 @@
 
     /* cta banner */
     .cta-banner {
-      background: var(--green);
+      background: var(--bg-dark);
       padding: 100px 24px;
       text-align: center;
     }
@@ -879,6 +959,116 @@
         border-left: 1px solid rgba(255, 255, 223, 0.1);
         border-top: none;
       }
+    }
+
+    /* faq */
+    .faq {
+      background: var(--offwhite);
+      padding: 120px 24px;
+    }
+
+    .faq-header {
+      margin-bottom: 64px;
+    }
+
+    .faq-list {
+      max-width: 780px;
+    }
+
+    .faq-item {
+      border-top: 1px solid rgba(42, 57, 44, 0.12);
+    }
+
+    .faq-item:last-child {
+      border-bottom: 1px solid rgba(42, 57, 44, 0.12);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+
+    .faq-question h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--bg-dark);
+      margin: 0;
+    }
+
+    .faq-toggle {
+      flex-shrink: 0;
+      font-size: 1.5rem;
+      font-weight: 200;
+      color: var(--text-muted);
+      transition: transform 0.3s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+      padding-bottom: 24px;
+    }
+
+    /* offering tabs */
+    .offering-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+
+    .offering-tab {
+      padding: 12px 28px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 223, 0.15);
+      background: transparent;
+      color: rgba(255, 255, 223, 0.5);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .offering-tab:hover {
+      border-color: rgba(255, 255, 223, 0.3);
+      color: var(--offwhite);
+    }
+
+    .offering-tab.active {
+      background: var(--offwhite);
+      color: var(--bg-dark);
+      border-color: var(--offwhite);
+      font-weight: 500;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
     }
 
     /* section anchor offset */
@@ -1142,6 +1332,67 @@
     </div>
   </section>
 
+  <!-- partner belt -->
+  <div class="partner-belt" id="partnerBelt">
+    <div class="belt-track" id="beltTrack">
+      <!-- OC partners -->
+      <span class="partner-logo-item" data-city="orange county">Helmsman Ale House</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Wild Goose</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Twisted Tiki</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Sender One</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">BXCR Underground</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Class of 47</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Wet Dog Tavern</span>
+      <span class="belt-divider"></span>
+      <!-- LA partners -->
+      <span class="partner-logo-item" data-city="los angeles">Bar Lis</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Bar Bandini</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Desert 5 Spot</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">The Lincoln</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Highland Park Bowl</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Gin Rummy</span>
+      <span class="belt-divider"></span>
+      <!-- duplicate for seamless loop -->
+      <span class="partner-logo-item" data-city="orange county">Helmsman Ale House</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Wild Goose</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Twisted Tiki</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Sender One</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">BXCR Underground</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Class of 47</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="orange county">Wet Dog Tavern</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Bar Lis</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Bar Bandini</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Desert 5 Spot</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">The Lincoln</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Highland Park Bowl</span>
+      <span class="belt-divider"></span>
+      <span class="partner-logo-item" data-city="los angeles">Gin Rummy</span>
+      <span class="belt-divider"></span>
+    </div>
+  </div>
+
   <!-- comparison -->
   <section class="comparison">
     <div class="container">
@@ -1206,223 +1457,295 @@
     </div>
   </section>
 
-  <!-- venues -->
+  <!-- offerings (tabbed) -->
   <section class="offering" id="venues">
     <div class="container">
-      <div class="offering-header fade-in">
-        <p class="section-label section-label-light">for venues</p>
-        <h2 class="section-heading section-heading-light">drive foot traffic &amp; spend<br />to your venue.</h2>
-        <p class="section-sub section-sub-light">
-          we'll drive 20&ndash;100 members to your location on any given night, elevating your business &mdash; not taking away from current customer supply.
-        </p>
+      <div class="offering-tabs fade-in">
+        <button class="offering-tab active" data-tab="venues" onclick="switchTab('venues')">for venues</button>
+        <button class="offering-tab" data-tab="dining" onclick="switchTab('dining')">for dining</button>
+        <button class="offering-tab" data-tab="curators" onclick="switchTab('curators')">for curators</button>
       </div>
 
-      <div class="offering-grid fade-in">
-        <div class="offering-steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h4>pick a date</h4>
-              <p>find the right day and time for your business. it's completely up to you.</p>
+      <!-- VENUES TAB -->
+      <div class="tab-panel active" id="tab-venues">
+        <div class="offering-header">
+          <h2 class="section-heading section-heading-light">drive foot traffic &amp; spend<br />to your space.</h2>
+          <p class="section-sub section-sub-light">
+            whether you're a bar, caf&eacute;, art gallery, bowling alley, or any space that wants more people &mdash; we'll drive 20&ndash;100 members to your location on any given night, elevating your business without taking away from your current customer supply.
+          </p>
+        </div>
+        <div class="offering-grid">
+          <div class="offering-steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>pick a date</h4>
+                <p>find the right day and time for your business. it's completely up to you.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>host a group</h4>
+                <p>open your doors to 20&ndash;100 members, providing a dedicated "home base" or area for our members to meet &amp; mingle.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>get feedback</h4>
+                <p>see immediate feedback from guests. clear, actionable insights only available to you &mdash; unlike google or yelp.</p>
+              </div>
             </div>
           </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h4>host a group</h4>
-              <p>open your doors to 20&ndash;100 members, providing a dedicated "home base" or area for our members to meet &amp; mingle.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h4>get feedback</h4>
-              <p>see immediate feedback from guests. clear, actionable insights only available to you &mdash; unlike google or yelp.</p>
+          <div>
+            <div class="value-props" style="margin-top: 0;">
+              <div class="value-card">
+                <h4>your own dashboard</h4>
+                <p>summarized feedback, experience breakdowns, and individual comments. we receive on average 87% feedback per experience.</p>
+              </div>
+              <div class="value-card">
+                <h4>content creation</h4>
+                <p>we send creators to capture content and share it with you. our members' content has reached 100 million+ views.</p>
+              </div>
+              <div class="value-card">
+                <h4>avenue for discovery</h4>
+                <p>majority of our members are new to the city. if they enjoy your venue, they will come back in their free time.</p>
+              </div>
+              <div class="value-card">
+                <h4>simple pricing</h4>
+                <p>$5 per member sent. we only charge for members that check in. if you're ever dissatisfied, we will always refund it.</p>
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <div class="value-props" style="margin-top: 0;">
-            <div class="value-card">
-              <h4>your own dashboard</h4>
-              <p>summarized feedback, experience breakdowns, and individual comments. we receive on average 87% feedback per experience.</p>
-            </div>
-            <div class="value-card">
-              <h4>content creation</h4>
-              <p>we send creators to capture content and share it with you. our members' content has reached 100 million+ views.</p>
-            </div>
-            <div class="value-card">
-              <h4>avenue for discovery</h4>
-              <p>majority of our members are new to the city. if they enjoy your venue, they will come back in their free time.</p>
-            </div>
-            <div class="value-card">
-              <h4>simple pricing</h4>
-              <p>$5 per member sent. we only charge for members that check in. if you're ever dissatisfied, we will always refund it.</p>
-            </div>
+        <div class="offering-highlights">
+          <div class="highlight-card">
+            <div class="highlight-num">+90%</div>
+            <div class="highlight-desc">occupancy increase for partnered venues on 222 nights</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">$3M+</div>
+            <div class="highlight-desc">revenue generated for partnered bars in 2025</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">200+</div>
+            <div class="highlight-desc">partners across the globe</div>
           </div>
         </div>
       </div>
 
-      <div class="offering-highlights fade-in">
-        <div class="highlight-card">
-          <div class="highlight-num">+90%</div>
-          <div class="highlight-desc">occupancy increase for partnered venues on 222 nights</div>
+      <!-- DINING TAB -->
+      <div class="tab-panel" id="tab-dining">
+        <div class="offering-header">
+          <h2 class="section-heading section-heading-light">222 will fill your restaurant's<br />open tables.</h2>
+          <p class="section-sub section-sub-light">
+            we send your restaurant hyper-targeted foot traffic. we automatically make reservations for groups of 6 to dine at your location using ai to match people with restaurants we know they'd enjoy.
+          </p>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-num">$3M+</div>
-          <div class="highlight-desc">revenue generated for partnered bars in 2025</div>
+        <div class="offering-grid">
+          <div class="offering-steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>same reservation flow</h4>
+                <p>we integrate directly with OpenTable &amp; Resy so there are no extra steps for you to set up with 222.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>performance, not impressions</h4>
+                <p>instead of paying to be advertised to potential customers on Yelp or Google, pay for direct and predictable foot traffic. we only make money if you do.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>direct member feedback</h4>
+                <p>80&ndash;85% of all 222 members give feedback about the restaurant through your dashboard so you can improve.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="value-props" style="margin-top: 0;">
+              <div class="value-card">
+                <h4>prioritized reservations</h4>
+                <p>as a partner, we prioritize sending our high spend members to your location.</p>
+              </div>
+              <div class="value-card">
+                <h4>organic exposure</h4>
+                <p>our members are industry shakers and makers who will post about your location. member content has reached millions of views.</p>
+              </div>
+              <div class="value-card">
+                <h4>simple partnership</h4>
+                <p>seat our guests as they come, split the check up to 6 ways. we charge $3 per person sent to your restaurant.</p>
+              </div>
+              <div class="value-card">
+                <h4>targeted demographics</h4>
+                <p>members ages 21&ndash;40, most 27&ndash;33. industry professionals new to the city.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-num">200+</div>
-          <div class="highlight-desc">partners across the globe</div>
+        <div class="offering-highlights">
+          <div class="highlight-card">
+            <div class="highlight-num">+80%</div>
+            <div class="highlight-desc">occupancy increase for partnered restaurants on 222 nights</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">100K+</div>
+            <div class="highlight-desc">members sent to dine at partnered restaurants</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">$3.5M+</div>
+            <div class="highlight-desc">revenue generated for partners in 2025</div>
+          </div>
         </div>
       </div>
+
+      <!-- CURATORS TAB -->
+      <div class="tab-panel" id="tab-curators">
+        <div class="offering-header">
+          <h2 class="section-heading section-heading-light">never worry about<br />ticket sales again.</h2>
+          <p class="section-sub section-sub-light">
+            unlike other platforms that promise marketing tools and leave you to figure out the rest, 222 actually sells tickets to your events. the only thing you have to worry about is hosting &mdash; we handle everything else.
+          </p>
+        </div>
+        <div class="offering-grid">
+          <div class="offering-steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>meet &amp; align</h4>
+                <p>meet with your market operator to align on ticket pricing, date, logistics, and everything that makes sense for your experience.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>submit &amp; go live</h4>
+                <p>once approved, you get your own dashboard to submit experiences that go live on our calendar for members to sign up for. 222 handles all marketing.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>get paid &amp; improve</h4>
+                <p>payments via Stripe, deposited the day after. our members give quantitative &amp; qualitative feedback so you can keep improving.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="value-props" style="margin-top: 0;">
+              <div class="value-card">
+                <h4>host any event</h4>
+                <p>we sell tickets for you &mdash; host any type of event you'd want and focus entirely on the experience, not marketing.</p>
+              </div>
+              <div class="value-card">
+                <h4>create meaningful moments</h4>
+                <p>build a space where strangers become friends. your event becomes the backdrop for real connections and memories that keep people coming back.</p>
+              </div>
+              <div class="value-card">
+                <h4>detailed feedback</h4>
+                <p>summarized feedback, demographic insights, and experience tracking. we receive on average 87% feedback per experience.</p>
+              </div>
+              <div class="value-card">
+                <h4>fair commission</h4>
+                <p>222 takes a 10% commission per ticket sold. the more your events improve and members enjoy them, the more often we'll feature you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="offering-highlights">
+          <div class="highlight-card">
+            <div class="highlight-num">$1M+</div>
+            <div class="highlight-desc">revenue generated for all 222 curator partners in 2025</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">$40,000</div>
+            <div class="highlight-desc">highest individual curator revenue in 2025</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-num">4x</div>
+            <div class="highlight-desc">host up to 4 experiences a month with 222</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- dining -->
-  <section class="offering-light" id="dining" style="padding: 120px 24px;">
+  <!-- faq -->
+  <section class="faq" id="faq">
     <div class="container">
-      <div class="offering-header fade-in">
-        <p class="section-label">for restaurants</p>
-        <h2 class="section-heading">222 will fill your restaurant's<br />open tables.</h2>
-        <p class="section-sub">
-          we send your restaurant hyper-targeted foot traffic. we automatically make reservations for groups of 6 to dine at your location using ai to match people with restaurants we know they'd enjoy.
-        </p>
+      <div class="faq-header fade-in">
+        <p class="section-label">common questions</p>
+        <h2 class="section-heading">before we get on a call.</h2>
       </div>
-
-      <div class="offering-grid fade-in">
-        <div class="offering-steps">
-          <div class="step">
-            <div class="step-num step-num-dark">1</div>
-            <div class="step-content step-content-dark">
-              <h4>same reservation flow</h4>
-              <p>we integrate directly with OpenTable &amp; Resy so there are no extra steps for you to set up with 222.</p>
-            </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>how much does it cost?</h4>
+            <span class="faq-toggle">+</span>
           </div>
-          <div class="step">
-            <div class="step-num step-num-dark">2</div>
-            <div class="step-content step-content-dark">
-              <h4>performance, not impressions</h4>
-              <p>instead of paying to be advertised to potential customers on Yelp or Google, pay for direct and predictable foot traffic. we only make money if you do.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num step-num-dark">3</div>
-            <div class="step-content step-content-dark">
-              <h4>direct member feedback</h4>
-              <p>80&ndash;85% of all 222 members give feedback about the restaurant through your dashboard so you can improve.</p>
-            </div>
+          <div class="faq-answer">
+            <p>for venues and restaurants: $3&ndash;5 per member sent. we only charge for members that checked in via in-app location tracking. if you're ever dissatisfied, we refund it. for curators: you set the price, we sell the tickets, you keep 90%.</p>
           </div>
         </div>
-        <div>
-          <div class="value-props" style="margin-top: 0;">
-            <div class="value-card value-card-light">
-              <h4>prioritized reservations</h4>
-              <p>as a partner, we prioritize sending our high spend members to your location.</p>
-            </div>
-            <div class="value-card value-card-light">
-              <h4>organic exposure</h4>
-              <p>our members are industry shakers and makers who will post about your location. member content has reached millions of views.</p>
-            </div>
-            <div class="value-card value-card-light">
-              <h4>simple partnership</h4>
-              <p>seat our guests as they come, split the check up to 6 ways. we charge $3 per person sent to your restaurant.</p>
-            </div>
-            <div class="value-card value-card-light">
-              <h4>targeted demographics</h4>
-              <p>members ages 21&ndash;40, most 27&ndash;33. industry professionals new to the city.</p>
-            </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>do i need to change how i operate?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>not at all. our members are just normal customers. for venues, we just need a dedicated area for the group on the night. for curators, you submit experiences through your dashboard and we handle everything else.</p>
           </div>
         </div>
-      </div>
-
-      <div class="offering-highlights fade-in">
-        <div class="highlight-card highlight-card-light">
-          <div class="highlight-num highlight-num-dark">+80%</div>
-          <div class="highlight-desc highlight-desc-dark">occupancy increase for partnered restaurants on 222 nights</div>
-        </div>
-        <div class="highlight-card highlight-card-light">
-          <div class="highlight-num highlight-num-dark">100K+</div>
-          <div class="highlight-desc highlight-desc-dark">members sent to dine at partnered restaurants</div>
-        </div>
-        <div class="highlight-card highlight-card-light">
-          <div class="highlight-num highlight-num-dark">$3.5M+</div>
-          <div class="highlight-desc highlight-desc-dark">revenue generated for partners in 2025</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- curators -->
-  <section class="offering" id="curators">
-    <div class="container">
-      <div class="offering-header fade-in">
-        <p class="section-label section-label-light">for curators</p>
-        <h2 class="section-heading section-heading-light">never worry about<br />ticket sales again.</h2>
-        <p class="section-sub section-sub-light">
-          unlike other platforms that promise marketing tools and leave you to figure out the rest, 222 actually sells tickets to your events. the only thing you have to worry about is hosting &mdash; we handle everything else.
-        </p>
-      </div>
-
-      <div class="offering-grid fade-in">
-        <div class="offering-steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h4>meet &amp; align</h4>
-              <p>meet with your market operator to align on ticket pricing, date, logistics, and everything that makes sense for your experience.</p>
-            </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>what if i'm not happy with the group?</h4>
+            <span class="faq-toggle">+</span>
           </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h4>submit &amp; go live</h4>
-              <p>once approved, you get your own dashboard to submit experiences that go live on our calendar for members to sign up for. 222 handles all marketing.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h4>get paid &amp; improve</h4>
-              <p>payments via Stripe, deposited the day after. our members give quantitative &amp; qualitative feedback so you can keep improving.</p>
-            </div>
+          <div class="faq-answer">
+            <p>we'll refund your fee &mdash; no questions asked. but our members are young professionals who show up to spend and have a good time. they're the kind of customers you want.</p>
           </div>
         </div>
-        <div>
-          <div class="value-props" style="margin-top: 0;">
-            <div class="value-card">
-              <h4>host any event</h4>
-              <p>we sell tickets for you &mdash; host any type of event you'd want and focus entirely on the experience, not marketing.</p>
-            </div>
-            <div class="value-card">
-              <h4>create meaningful moments</h4>
-              <p>build a space where strangers become friends. your event becomes the backdrop for real connections and memories that keep people coming back.</p>
-            </div>
-            <div class="value-card">
-              <h4>detailed feedback</h4>
-              <p>summarized feedback, demographic insights, and experience tracking. we receive on average 87% feedback per experience.</p>
-            </div>
-            <div class="value-card">
-              <h4>fair commission</h4>
-              <p>222 takes a 10% commission per ticket sold. the more your events improve and members enjoy them, the more often we'll feature you.</p>
-            </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>how do members find my venue?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>we handle all the matchmaking and logistics. members get invited to experiences at your venue through the 222 app &mdash; they don't search for you, we send them to you.</p>
           </div>
         </div>
-      </div>
-
-      <div class="offering-highlights fade-in">
-        <div class="highlight-card">
-          <div class="highlight-num">$1M+</div>
-          <div class="highlight-desc">revenue generated for all 222 curator partners in 2025</div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>what kind of feedback do i get?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>after every experience, you get a private dashboard with summarized highlights and pain points, demographic insights, and individual comments from guests. 87% of attendees leave feedback.</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-num">$40,000</div>
-          <div class="highlight-desc">highest individual curator revenue in 2025</div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>how often will you send people?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>that's up to you. you pick the dates and frequency. most partners start with once or twice a month and increase from there.</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-num">4x</div>
-          <div class="highlight-desc">host up to 4 experiences a month with 222</div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <h4>what makes 222 different from a promotion group?</h4>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>222 is a technology company. members download our app and take a 15-minute questionnaire where they tell us about their tastes and interests. we use that information to send them to venues we know they'd like. for you, this means that the members we send your way are more likely to enjoy your venue or event and therefore become a repeat customer.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1433,11 +1756,7 @@
     <div class="container fade-in">
       <h2>ready to partner with 222?</h2>
       <p>join 200+ partners driving real connections &mdash; and real revenue.</p>
-      <div class="hero-ctas">
-        <a href="#venues" class="btn btn-white">for venues</a>
-        <a href="#dining" class="btn btn-outline-light">for dining</a>
-        <a href="#curators" class="btn btn-outline-light">for curators</a>
-      </div>
+      <a href="https://twotwotwo.typeform.com/to/TjyT8YvD" target="_blank" class="btn btn-white" style="margin-top: 8px;">partner with us</a>
     </div>
   </section>
 
@@ -1504,6 +1823,55 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // offering tab switching
+    function switchTab(tab) {
+      document.querySelectorAll('.offering-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelector(`.offering-tab[data-tab="${tab}"]`).classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    // also handle nav link clicks for dining/curators to switch tabs
+    document.querySelectorAll('a[href="#dining"], a[href="#curators"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tab = link.getAttribute('href').replace('#', '');
+        switchTab(tab);
+        document.getElementById('venues').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // partner belt city highlight (no stopping)
+    const pills = document.querySelectorAll('.market-pill');
+    const logos = document.querySelectorAll('.partner-logo-item');
+    let highlightTimeout;
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const city = pill.textContent.trim().toLowerCase();
+        const wasActive = pill.classList.contains('active');
+
+        // clear previous
+        pills.forEach(p => p.classList.remove('active'));
+        logos.forEach(l => l.classList.remove('highlight'));
+        clearTimeout(highlightTimeout);
+
+        if (wasActive) return;
+
+        // activate pill and highlight matching partners
+        pill.classList.add('active');
+        logos.forEach(l => {
+          if (l.dataset.city === city) l.classList.add('highlight');
+        });
+
+        // auto-clear highlight after 5 seconds
+        highlightTimeout = setTimeout(() => {
+          logos.forEach(l => l.classList.remove('highlight'));
+          pills.forEach(p => p.classList.remove('active'));
+        }, 5000);
+      });
+    });
   </script>
 
 </body>
