@@ -1857,10 +1857,13 @@
       });
     });
 
-    // partner belt city highlight (no stopping)
+    // partner belt city highlight + scroll to city
     const pills = document.querySelectorAll('.market-pill');
-    const logos = document.querySelectorAll('.partner-logo-item');
+    const belt = document.getElementById('partnerBelt');
+    const track = document.getElementById('beltTrack');
+    const logos = track.querySelectorAll('.partner-logo-item');
     let highlightTimeout;
+    let isSnapped = false;
 
     pills.forEach(pill => {
       pill.addEventListener('click', () => {
@@ -1872,19 +1875,56 @@
         logos.forEach(l => l.classList.remove('highlight'));
         clearTimeout(highlightTimeout);
 
-        if (wasActive) return;
+        if (wasActive) {
+          // resume scrolling
+          isSnapped = false;
+          track.style.transition = '';
+          track.style.transform = '';
+          track.style.animation = '';
+          return;
+        }
 
-        // activate pill and highlight matching partners
+        // check if city has partners
+        const firstMatch = Array.from(logos).find(l => l.dataset.city === city);
+        if (!firstMatch) return;
+
+        // activate pill
         pill.classList.add('active');
+
+        // highlight matching
         logos.forEach(l => {
           if (l.dataset.city === city) l.classList.add('highlight');
         });
 
-        // auto-clear highlight after 5 seconds
+        // freeze current position
+        const computedStyle = window.getComputedStyle(track);
+        const matrix = computedStyle.transform;
+        track.style.animation = 'none';
+        track.style.transform = matrix;
+        track.offsetHeight; // force reflow
+
+        // calculate where to slide
+        const beltRect = belt.getBoundingClientRect();
+        const matchRect = firstMatch.getBoundingClientRect();
+        const beltCenter = beltRect.width / 2;
+        const matchCenter = matchRect.left - beltRect.left + matchRect.width / 2;
+        const currentX = new DOMMatrix(matrix).m41 || 0;
+        const targetX = currentX - (matchCenter - beltCenter);
+
+        // slide to city
+        track.style.transition = 'transform 0.8s ease';
+        track.style.transform = `translateX(${targetX}px)`;
+        isSnapped = true;
+
+        // resume scrolling after 4 seconds
         highlightTimeout = setTimeout(() => {
           logos.forEach(l => l.classList.remove('highlight'));
           pills.forEach(p => p.classList.remove('active'));
-        }, 5000);
+          isSnapped = false;
+          track.style.transition = '';
+          track.style.transform = '';
+          track.style.animation = '';
+        }, 4000);
       });
     });
   </script>
